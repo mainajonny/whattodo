@@ -18,7 +18,7 @@ Key features:
 
 ## Getting Started
 
-- Download apk from assets (Debug version 1.0.0) in this repository.
+- Download apk from assets (Debug version 1.0.0) in this repository OR [click here](https://github.com/mainajonny/whattodo/releases/download/Staging/WhatToDo.apk).
 - Install the apk on your android device.
 - Authenticate with Google OR Register as a new user and Login with that user.
 - Add tasks and explore other task features.
