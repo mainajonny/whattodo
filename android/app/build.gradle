@@ -1,0 +1,74 @@
+plugins {
+    id "com.android.application"
+    id "org.jetbrains.kotlin.android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+android {
+    namespace "co.whattodo.whattodo"
+    compileSdk localProperties.getProperty('flutter.compileSdkVersion').toInteger()
+    ndkVersion localProperties.getProperty('flutter.ndkVersion')
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
+
+    defaultConfig {
+        applicationId "co.whattodo.whattodo"
+        minSdkVersion localProperties.getProperty('flutter.minSdkVersion').toInteger()
+        targetSdkVersion localProperties.getProperty('flutter.targetSdkVersion').toInteger()
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+        manifestPlaceholders appAuthRedirectScheme: 'co.whattodo.whattodo'
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.debug
+        }
+    }
+    buildToolsVersion '34.0.0'
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation("androidx.multidex:multidex:2.0.1")
+    implementation(platform('com.google.firebase:firebase-bom:33.0.0'))
+}
